@@ -1,0 +1,16 @@
+{
+    "contents" : "# Andrew Fairless, December 2010\n# modified May 2015 for posting onto Github\n# This script executes analyses of (co)variance for Fairless et al 2012\n# Fairless et al 2012, doi: 10.1016/j.bbr.2011.12.001, PMID:  22178318, PMCID:  PMC3474345\n\n# The fictional data in \"altereddata.txt\" were modified from the original \n# empirical data used in Fairless et al 2012.\n# I am using fictional data instead of the original data because I do not have \n# permission of my co-authors to release the data into the public domain.  \n# NOTE:  Because these data are fictional, several important characteristics of\n# these data may be different from those of the original data (e.g., interrater\n# correlations are probably lower, behaviors may not sum properly)\n\n# Each row is a separate mouse.\n# The left-most 3 columns are quasi-independent variables (mouse strain, sex, and age).\n# The right-most 5 columns are dependent variables describing behaviors of the\n# mice during the Social Approach/Choice Test.\n\ndata = read.table(\"altereddata.txt\", header = TRUE)      \nagesplit = split(data, data$age)\n\n# implements the ANOVAs by age group as described in Fairless et al 2012:\n# \"To further investigate how the strains differed in their sociability across \n# development, we followed with analyses at each age group. . . . At 19 days of \n# age, 2 × 2 (strain by sex) ANOVAs (conventional and 20% trimmed means) showed \n# that BALB/cJ mice were less sociable than C57BL/6J mice . . . \"\n\nfor (agegroup in 1:length(agesplit)) {       # loop iterates over each age group\n\n     # implements conventional ANOVA\n     aovmodelfull = aov(soc.3rd5min~strain*sex, data = agesplit[[agegroup]])\n\n     sink(file = paste(\"conventionalanova\", names(agesplit)[agegroup], \".txt\", sep = \"\"))\n     print(aovmodelfull)\n     print(summary(aovmodelfull))\n     sink(file = NULL)\n\n     # diagnostic plots for the conventional ANOVA model\n     png(file = paste(\"diagnostics,conventionalanova,\", names(agesplit)[agegroup], \n                      \".png\", sep = \"\"), width = 1280, height = 1024)\n     layout(matrix(c(1, 2, 3, 4), 2, 2))\n     plot(aovmodelfull)\n     dev.off()\n\n     # implements robust ANOVA\n     source(\"Rallfun-v13.txt\")\n     agesplit = split(data, data$age)\n     data3 = agesplit[[agegroup]]\n     depvarcol = dim(data)[2]\n     data4 = data.matrix(cbind(data3[ , 1], data3[ , 2], data3[ , depvarcol]))\n\n     sink(file = paste(\"robustanova\", names(agesplit)[agegroup], \".txt\", sep = \"\"))\n     print(paste(\"The dependent variable is:  \", colnames(data3)[depvarcol]))\n     print(paste(\"Factor 1 or A is:  \", colnames(data3)[1]))\n     print(paste(\"Factor 2 or B is:  \", colnames(data3)[2]))\n     print(t2way(2, 2, data4, MAT = T))\n     sink(file = NULL)\n\n}",
+    "created" : 1452016119595.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4123046380",
+    "id" : "711ED635",
+    "lastKnownWriteTime" : 1433020353,
+    "path" : "~/Link to backup/2015 code share/Fairless et al 2012 soc by age groups/to share/revising.R",
+    "project_path" : "revising.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

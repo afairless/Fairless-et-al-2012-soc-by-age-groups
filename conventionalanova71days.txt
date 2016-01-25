@@ -1,0 +1,17 @@
+Call:
+   aov(formula = soc.3rd5min ~ strain * sex, data = agesplit[[agegroup]])
+
+Terms:
+                  strain      sex strain:sex Residuals
+Sum of Squares      9.58  9225.76      40.49  64158.49
+Deg. of Freedom        1        1          1        41
+
+Residual standard error: 39.55807
+Estimated effects may be unbalanced
+            Df Sum Sq Mean Sq F value Pr(>F)  
+strain       1     10      10   0.006 0.9380  
+sex          1   9226    9226   5.896 0.0197 *
+strain:sex   1     40      40   0.026 0.8730  
+Residuals   41  64158    1565                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

@@ -1,0 +1,28 @@
+[1] "The dependent variable is:   soc.3rd5min"
+[1] "Factor 1 or A is:   strain"
+[1] "Factor 2 or B is:   sex"
+[1] "Factor 1 has 2 levels"
+[1] "Factor 2 has 2 levels"
+$Qa
+[1] 15.97457
+
+$A.p.value
+[1] 0.001
+
+$Qb
+[1] 0.0064901
+
+$B.p.value
+[1] 0.937
+
+$Qab
+[1] 1.188191
+
+$AB.p.value
+[1] 0.292
+
+$means
+         [,1]     [,2]
+[1,] 30.16667 17.37500
+[2,] 67.00000 81.83333
+
